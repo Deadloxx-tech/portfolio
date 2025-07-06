@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M. Papun Patra - Tech Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .code-rain {
+            position: absolute;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            animation: fall 10s linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 4px solid #00ff41;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+            transition: all 0.3s ease;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(0, 255, 65, 0.8);
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(0, 255, 65, 0.5); }
+            to { box-shadow: 0 0 40px rgba(0, 255, 65, 0.8); }
+        }
+
+        .name-section {
+            text-align: left;
+        }
+
+        .name {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ff41, #0066cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            color: #00ff41;
+            margin-bottom: 20px;
+        }
+
+        .typing-text {
+            font-size: 1.2rem;
+            color: #cccccc;
+        }
+
+        /* Content Cards */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #00ff41;
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.2);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: #00ff41;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+            color: #000;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #00ff41;
+        }
+
+        .card-content {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .tag {
+            background: rgba(0, 255, 65, 0.2);
+            border: 1px solid #00ff41;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: #00ff41;
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        .achievement-item {
+            background: rgba(0, 102, 204, 0.1);
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .achievement-item:hover {
+            transform: translateX(10px);
+            background: rgba(0, 102, 204, 0.2);
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #00ff41, #0066cc);
+            color: #000;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.4);
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .name-section {
+                text-align: center;
+            }
+
+            .name {
+                font-size: 2rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation" id="bgAnimation"></div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="profile-section">
+                <img src="C:\Users\papun\OneDrive\Desktop\project_portfolio\templates\profile.jpg" alt="profile" class="profile-image">
+                <div class="name-section">
+                    <h1 class="name">M. Papun Patra</h1>
+                    <h2 class="title">Full Stack Developer</h2>
+                    <p class="typing-text" id="typingText">Passionate coder & problem solver</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <!-- Bio Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">👨‍💻</div>
+                    <h3 class="card-title">About Me</h3>
+                </div>
+                <div class="card-content">
+                    <p>I am a passionate and dedicated developer with extensive experience in Python and web development. I thrive on solving real-world problems through innovative code solutions and constantly push myself to learn cutting-edge technologies.</p>
+                    <div class="skill-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Flask</span>
+                        <span class="tag">Web Development</span>
+                        <span class="tag">Problem Solving</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🎓</div>
+                    <h3 class="card-title">Education</h3>
+                </div>
+                <div class="card-content">
+                    <div class="achievement-item">
+                        <h4>Bachelor of Technology in Computer Science</h4>
+                        <p>Gandhi Institute of Engineering and Technology University</p>
+                        <p><strong>Graduation Year:</strong> 2024</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🏆</div>
+                    <h3 class="card-title">Achievements</h3>
+                </div>
+                <div class="card-content">
+                    <div class="achievement-item">
+                        <h4>Flask Web Applications</h4>
+                        <p>Built multiple robust Flask web applications with modern UI/UX</p>
+                    </div>
+                    <div class="achievement-item">
+                        <h4>Academic Excellence</h4>
+                        <p>Top performer in college with outstanding academic records</p>
+                    </div>
+                    <div class="achievement-item">
+                        <h4>Professional Experience</h4>
+                        <p>Completed internships in web development and Python scripting</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resume Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📄</div>
+                    <h3 class="card-title">Resume</h3>
+                </div>
+                <div class="card-content">
+                    <p>Download my complete resume to learn more about my experience, skills, and projects.</p>
+                    <a href="resume.pdf" target="_blank" class="download-btn">
+                        📥 Download Resume
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animated background code rain
+        function createCodeRain() {
+            const bgAnimation = document.getElementById('bgAnimation');
+            const codeChars = ['0', '1', '{', '}', '<', '>', '/', '\\', '(', ')', '[', ']', '=', '+', '-', '*', '%', '&', '#', '@', '!', '?'];
+            
+            for (let i = 0; i < 50; i++) {
+                const span = document.createElement('span');
+                span.className = 'code-rain';
+                span.textContent = codeChars[Math.floor(Math.random() * codeChars.length)];
+                span.style.left = Math.random() * 100 + '%';
+                span.style.animationDelay = Math.random() * 10 + 's';
+                span.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                bgAnimation.appendChild(span);
+            }
+        }
+
+        // Typing animation
+        function typeText(element, text, speed = 100) {
+            let i = 0;
+            element.textContent = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    setTimeout(() => {
+                        i = 0;
+                        element.textContent = '';
+                        setTimeout(type, 1000);
+                    }, 3000);
+                }
+            }
+            type();
+        }
+
+        // Intersection Observer for card animations
+        function observeCards() {
+            const cards = document.querySelectorAll('.card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            createCodeRain();
+            
+            const typingElement = document.getElementById('typingText');
+            typingElement.textContent = 'Passionate coder & problem solver';
+            observeCards();
+        });
+
+        // Add interactive hover effects
+        document.addEventListener('mousemove', function(e) {
+            const cursor = document.querySelector('.cursor');
+            if (!cursor) {
+                const newCursor = document.createElement('div');
+                newCursor.className = 'cursor';
+                newCursor.style.position = 'fixed';
+                newCursor.style.width = '20px';
+                newCursor.style.height = '20px';
+                newCursor.style.background = 'rgba(0, 255, 65, 0.5)';
+                newCursor.style.borderRadius = '50%';
+                newCursor.style.pointerEvents = 'none';
+                newCursor.style.zIndex = '9999';
+                newCursor.style.filter = 'blur(2px)';
+                document.body.appendChild(newCursor);
+            }
+            
+            const cursorElement = document.querySelector('.cursor');
+            cursorElement.style.left = e.clientX - 10 + 'px';
+            cursorElement.style.top = e.clientY - 10 + 'px';
+        });
+    </script>
+</body>
+</html>
